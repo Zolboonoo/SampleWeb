@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!--	<div th:insert="common/sourceList :: sourceList"></div>-->
+	<div class="container">
+		<h1>Login</h1>
+		<div class="form">
+			<span th:text="${errorMsg}"></span>
+			<form th:action="@{/login}" method="post" th:object="${loginForm}">
+			<div>				
+				<label>login ID:</label>
+				<input class="must" type="text" th:field="*{loginId}">
+			</div>
+			<div>				
+				<label>password:</label>
+				<input class="must" type="password" th:field="*{password}">
+			</div>
+			<div style="text-align: center;">				
+				<input class="button" type="submit" value="login">
+			</div>
+			<a th:href="@{signup}">sign up</a>
+		</div>
+	</div>
+</form>
+</body>
+</html>

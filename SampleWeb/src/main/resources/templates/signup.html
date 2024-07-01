@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="UTF-8">
+<title>Sign up</title>
+<!--<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">-->
+<!--<script type="text/javascript" th:src="@{/webjars/jquery/3.7.1/jquery.min.js"></script>-->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<div class="container">
+		<h1>Register</h1>
+		<div class="form">
+				<div th:styleappend="|${isError?'background-color:red;':'background-color:blue;'}|" role="alert" th:if="${message!=null}">
+					<span th:text="${message}"></span>
+				</div>
+			<form th:action="@{/signup}" method="post" th:object="${signupForm}">
+			<div>				
+				<label>login ID:</label>
+				<input class="must" type="text" th:field="*{loginId}">
+			</div>
+			<span style="color: red;" th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}"></span>
+			<div>				
+				<label>password:</label>
+				<input class="must" type="password" th:field="*{password}">
+			</div>
+			<span style="color: red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+			<div style="text-align: center;">				
+				<input class="button" type="submit" value="signup">
+			</div>
+			<a th:href="@{login}">Login</a>
+		</div>
+	</div>
+</form>
+</body>
+</html>

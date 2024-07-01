@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>USER LIST</title>
+</head>
+<body>
+<div th:insert="common/sourceList :: sourceList"></div>
+<div th:replace="common/header :: header"></div>
+<div class="container-fluid">
+	<h2 class="mt-3">User List</h2>
+	<div class="mt-3">
+		<span>Filter</span>
+	</div>
+	<div class="mt-1">
+		<form th:action="@{/userList}" method="post" th:object="${userListForm}">
+			<table>
+				<tr>
+					<td><span>Login ID：</span></td>
+					<td>
+						<div class="row g-3 align-items-center">
+							<div class="col-auto">
+								<input type="text" class="form-control" th:field="*{loginId}">
+							</div>
+							<div class="col-auto">
+								<span class="form-text">※</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span>Account state：</span></td>
+					<td>
+						<select class="form-select" name="userStatusKind">
+							<option value="">None</option>
+							<option th:each="userStatusKind : ${userStatusKinds}"
+								th:value="${userStatusKind}" th:text="${userStatusKind.displayValue}"></option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><span>Ownership：</span></td>
+					<td>
+						<select class="form-select" name="authorityKind">
+							<option value="">None</option>
+							<option th:each="authorityKind : ${authorityKinds}"
+								th:value="${authorityKind}" th:text="${authorityKind.displayValue}"></option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<input type="submit" class="btn btn-primary mt-3" name="search" value="Search">
+		</form>
+	</div>
+	<div class="mt-3">
+		<form th:action="@{/manageUser}" method="post">
+			<table class="table table-striped" id="userList">
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col">Login ID</th>
+						<th scope="col">Login fault count</th>
+						<th scope="col">Locked date</th>
+						<th scope="col">Account state</th>
+						<th scope="col">Ownership</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user, stat  : ${userList}">
+						<th scope="row" th:text="${stat.count}"></th>
+						<td th:id="|loginId_${stat.count}|"><span th:text="${user.loginId}"></span></td>
+						<td th:id="|loginFailureCount_${stat.count}|"><span th:text="${user.loginFailureCount}"></span></td>
+						<td th:id="|accountLockedTime_${stat.count}|"><span th:text="${user.accountLockedTime} != null ? ${#temporals.format(user.accountLockedTime, 'yyyy-MM-dd HH:mm')} : '-'"></span></td>
+						<td th:id="|status_${stat.count}|"><span th:text="${user.status}"></span></td>
+						<td th:id="|authority_${stat.count}|"><span th:text="${user.authority}"></span></td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="submit" class="btn btn-secondary" id="updateBtn" name="update" value="Update" disabled>
+			<input type="button" class="btn btn-danger" id="deleteDummyBtn" value="Delete" disabled>
+		</form>
+		<div class="mt-3">
+			<a th:href="@{/menu}">▶back to menu</a>
+		</div>
+	</div>
+</div>
+</html>
