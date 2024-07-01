@@ -10,4 +10,8 @@ public class AppUtil {
 		return messageSource.getMessage(key,params,Locale.JAPAN);
 	}
 
+	public static String addWildcard(String param) {
+		return "%" + param + "%";
+	}
+
 }

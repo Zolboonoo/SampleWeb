@@ -5,11 +5,6 @@ import java.util.Arrays;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- * ユーザー権限種別
- * 
- * @author ys-fj
- */
 @Getter
 @AllArgsConstructor
 public enum AuthorityKind {
@@ -18,16 +13,13 @@ public enum AuthorityKind {
 	UNKNOWN("", "Unknown"),
 
 	/* 商品情報の確認が可能 */
-//	ITEM_WATCHER("1", "Able to check product information"),
 	ITEM_WATCHER("1", "User"),
 
 	/* 商品情報の確認、更新が可能 */
-//	ITEM_MANAGER("2", "Able to check and update product information"),
 	ITEM_MANAGER("2", "Manager"),
 
 	/* 商品情報の確認、更新、全ユーザー情報の管理が可能 */
-//	ITEM_AND_USER_MANAGER("3", "Able to check and update product information and manage all user information");
-	ITEM_AND_USER_MANAGER("3", "Admin");
+	ITEM_AND_USER_MANAGER("3", "Admin"); 
 
 	/** コード値 */
 	private String code;
@@ -41,5 +33,4 @@ public enum AuthorityKind {
 				.findFirst()
 				.orElse(UNKNOWN);
 	}
-
 }

@@ -31,20 +31,20 @@
 				<tr>
 					<td><span>Account state：</span></td>
 					<td>
-						<select class="form-select" name="userStatusKind">
+						<select class="form-select" th:field="*{userStatusKind}">
 							<option value="">None</option>
-							<option th:each="userStatusKind : ${userStatusKinds}"
-								th:value="${userStatusKind}" th:text="${userStatusKind.displayValue}"></option>
+							<option th:each="userStatusKindOption : ${userStatusKindOptions}"
+								th:value="${userStatusKindOption}" th:text="${userStatusKindOption.displayValue}"></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td><span>Ownership：</span></td>
 					<td>
-						<select class="form-select" name="authorityKind">
+						<select class="form-select" th:field="*{authorityKind}">
 							<option value="">None</option>
-							<option th:each="authorityKind : ${authorityKinds}"
-								th:value="${authorityKind}" th:text="${authorityKind.displayValue}"></option>
+							<option th:each="authorityKindOption : ${authorityKindOptions}"
+								th:value="${authorityKindOption}" th:text="${authorityKindOption.displayValue}"></option>
 						</select>
 					</td>
 				</tr>
@@ -53,32 +53,45 @@
 		</form>
 	</div>
 	<div class="mt-3">
-		<form th:action="@{/manageUser}" method="post">
-			<table class="table table-striped" id="userList">
-				<thead>
-					<tr>
-						<th scope="col"></th>
-						<th scope="col">Login ID</th>
-						<th scope="col">Login fault count</th>
-						<th scope="col">Locked date</th>
-						<th scope="col">Account state</th>
-						<th scope="col">Ownership</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="user, stat  : ${userList}">
-						<th scope="row" th:text="${stat.count}"></th>
-						<td th:id="|loginId_${stat.count}|"><span th:text="${user.loginId}"></span></td>
-						<td th:id="|loginFailureCount_${stat.count}|"><span th:text="${user.loginFailureCount}"></span></td>
-						<td th:id="|accountLockedTime_${stat.count}|"><span th:text="${user.accountLockedTime} != null ? ${#temporals.format(user.accountLockedTime, 'yyyy-MM-dd HH:mm')} : '-'"></span></td>
-						<td th:id="|status_${stat.count}|"><span th:text="${user.status}"></span></td>
-						<td th:id="|authority_${stat.count}|"><span th:text="${user.authority}"></span></td>
-					</tr>
-				</tbody>
-			</table>
-			<input type="submit" class="btn btn-secondary" id="updateBtn" name="update" value="Update" disabled>
-			<input type="button" class="btn btn-danger" id="deleteDummyBtn" value="Delete" disabled>
-		</form>
+		<th:block th:unless="${#lists.isEmpty(userList)}">
+			<form th:action="@{/manageUser}" method="post">
+				<table class="table table-striped" id="userList">
+					<thead>
+						<tr>
+							<th scope="col"></th>
+							<th scope="col">Login ID</th>
+							<th scope="col">login Failure Count</th>
+							<th scope="col">Account locked date</th>
+							<th scope="col">Account state</th>
+							<th scope="col">Ownership</th>
+							<th scope="col">Registred date</th>
+							<th scope="col">Last Update date</th>
+							<th scope="col">last update user</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user, stat  : ${userList}">
+							<th scope="row" th:text="${stat.count}"></th>
+							<td th:id="|loginId_${stat.count}|"><span th:text="${user.loginId}"></span></td>
+							<td th:id="|loginFailureCount_${stat.count}|"><span th:text="${user.loginFailureCount}"></span></td>
+							<td th:id="|accountLockedTime_${stat.count}|"><span th:text="${user.accountLockedTime} != null ? ${#temporals.format(user.accountLockedTime, 'yyyy-MM-dd HH:mm')} : '-'"></span></td>
+							<td th:id="|status_${stat.count}|"><span th:text="${user.status}"></span></td>
+							<td th:id="|authority_${stat.count}|"><span th:text="${user.authority}"></span></td>
+							<td th:id="|createTime_${stat.count}|"><span th:text="${#temporals.format(user.createTime, 'yyyy-MM-dd HH:mm')}"></span></td>
+							<td th:id="|updateTime_${stat.count}|"><span th:text="${#temporals.format(user.updateTime, 'yyyy-MM-dd HH:mm')}"></span></td>
+							<td th:id="|updateUser_${stat.count}|"><span th:text="${user.updateUser}"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="submit" class="btn btn-secondary" id="updateBtn" name="update" value="更新" disabled>
+				<input type="button" class="btn btn-danger" id="deleteDummyBtn" value="削除" disabled>
+			</form>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(userList)}">
+			<div class="text-center">
+				<span>※The target user does not exist.</span>
+			</div>
+		</th:block>
 		<div class="mt-3">
 			<a th:href="@{/menu}">▶back to menu</a>
 		</div>
