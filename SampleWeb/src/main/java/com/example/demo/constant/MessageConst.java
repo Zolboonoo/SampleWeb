@@ -1,9 +1,5 @@
 package com.example.demo.constant;
 
-
-/**
- * 
- */
 public class MessageConst {
 
 	public static final String FORM_ERROR = "common.formError";

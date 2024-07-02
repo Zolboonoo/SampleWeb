@@ -3,8 +3,6 @@ package com.example.demo.constant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-
-
 @Getter
 @AllArgsConstructor
 public enum SignupMessage {

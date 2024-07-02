@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.constant.UrlConst;
+import com.example.demo.constant.ViewNameConst;
 import com.example.demo.form.LoginForm;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,7 +30,7 @@ public class LoginController {
 
 	@GetMapping(UrlConst.LOGIN)
 	public String view(Model model, LoginForm form) {
-		return "login";
+		return ViewNameConst.LOGIN;
 	}
 	
 	
@@ -39,7 +40,7 @@ public class LoginController {
 	public String viewWithError(Model model,LoginForm form){
 		var errorInfo = (Exception) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 		model.addAttribute("errorMsg",errorInfo.getMessage());
-		return "login";
+		return ViewNameConst.LOGIN;
 		
 	}
 	

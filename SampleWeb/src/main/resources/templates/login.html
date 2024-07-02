@@ -8,8 +8,8 @@
 <div th:replace="common/messageIcon :: messageIcon"></div>
 </head>
 <body>
-	<div th:insert="common/sourceList :: sourceList"></div>
-	<div th:replace="common/messageIcon :: messageIcon"></div>
+	<div th:insert="~{common/sourceList :: sourceList}"></div>
+	<div th:replace="~{common/messageIcon :: messageIcon}"></div>
 	<div class="container">
 		<h1>Login</h1>
 		<div class="form">

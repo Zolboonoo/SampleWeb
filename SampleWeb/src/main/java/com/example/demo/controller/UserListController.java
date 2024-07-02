@@ -6,10 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.constant.AuthorityKind;
-import com.example.demo.constant.ExecuteResult;
+import com.example.demo.constant.UserDeleteResult;
 import com.example.demo.constant.UrlConst;
-import com.example.demo.constant.UserStatusKind;
+import com.example.demo.constant.ViewNameConst;
+import com.example.demo.constant.db.AuthorityKind;
+import com.example.demo.constant.db.UserStatusKind;
 import com.example.demo.dto.UserSearchInfo;
 import com.example.demo.form.UserListForm;
 import com.example.demo.service.UserListService;
@@ -62,7 +63,7 @@ public class UserListController {
 		model.addAttribute(KEY_USER_STATUS_KIND_OPTIONS, UserStatusKind.values());
 		model.addAttribute(KEY_AUTHORITY_KIND_OPTIONS, AuthorityKind.values());
 
-		return "userList";
+		return ViewNameConst.USER_LIST;
 	}
 
 	/**
@@ -80,7 +81,7 @@ public class UserListController {
 		model.addAttribute(KEY_USER_STATUS_KIND_OPTIONS, UserStatusKind.values());
 		model.addAttribute(KEY_AUTHORITY_KIND_OPTIONS, AuthorityKind.values());
 
-		return "userList";
+		return ViewNameConst.USER_LIST;
 	}
 
 	/**
@@ -93,7 +94,7 @@ public class UserListController {
 	@PostMapping(value = UrlConst.USER_LIST, params = "delete")
 	public String deleteUser(Model model, UserListForm form) {
 		var executeResult = service.deleteUserInfoById(form.getSelectedLoginId());
-		model.addAttribute("isError", executeResult == ExecuteResult.ERROR);
+		model.addAttribute("isError", executeResult == UserDeleteResult.ERROR);
 		model.addAttribute("message", AppUtil.getMessage(messageSource, executeResult.getMessageId()));
 
 		// 削除後、フォーム情報の「選択されたログインID」は不要になるため、クリアします。
