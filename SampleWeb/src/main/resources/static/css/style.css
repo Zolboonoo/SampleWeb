@@ -11,7 +11,7 @@
         background-color: #f7f7f7;
       } */
 
-      /* .container {
+      .container {
         background-color: white;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         padding: 20px;
@@ -34,10 +34,10 @@
         align-items: center;
       }
 
-      label {
+      /* label {
         font-weight: bold;
         margin-bottom: 10px;
-      }
+      } */
 
       input.must {
         padding: 8px;
@@ -77,12 +77,12 @@
         background-color: #0062cc;
       }
 
-      #result {
+      /* #result {
         margin-top: 20px;
         font-size: 24px;
         font-weight: bold;
-      }
-      
+      } */
+/*       
       .navbar{
 		padding: 8px;
         border: 1px solid #ccc;

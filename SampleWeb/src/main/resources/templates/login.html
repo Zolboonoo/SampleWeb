@@ -4,13 +4,23 @@
 <meta charset="UTF-8">
 <title>Login</title>
 <link rel="stylesheet" th:href="@{/css/style.css}">
+<div th:insert="common/sourceList :: sourceList"></div>
+<div th:replace="common/messageIcon :: messageIcon"></div>
 </head>
 <body>
-<!--	<div th:insert="common/sourceList :: sourceList"></div>-->
+	<div th:insert="common/sourceList :: sourceList"></div>
+	<div th:replace="common/messageIcon :: messageIcon"></div>
 	<div class="container">
 		<h1>Login</h1>
 		<div class="form">
-			<span th:text="${errorMsg}"></span>
+		<div class="alert alert-danger d-flex align-items-center" role="alert" th:if="${errorMsg} != null">
+			<svg class="bi flex-shrink-0 me-2" width="24" height="24">
+				<use xlink:href="#exclamation-triangle-fill" />
+			</svg>
+			<div>
+				<span th:text="${errorMsg}"></span>
+			</div>
+		</div>
 			<form th:action="@{/login}" method="post" th:object="${loginForm}">
 			<div>				
 				<label>login ID:</label>
@@ -29,3 +39,59 @@
 </form>
 </body>
 </html>
+
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div th:insert="common/sourceList :: sourceList"></div>
+    <div th:replace="common/messageIcon :: messageIcon"></div>
+    <div class="container-fluid">
+      <h1>Login</h1>
+      <div
+        class="alert alert-danger d-flex align-items-center"
+        role="alert"
+        th:if="${errorMsg} != null"
+      >
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+          <use xlink:href="#exclamation-triangle-fill" />
+        </svg>
+        <div>
+          <span th:text="${errorMsg}"></span>
+        </div>
+      </div>
+      <form th:action="@{/login}" method="post" th:object="${loginForm}">
+        <div class="form-group">
+          <div class="col-3 col-md-2 col-xxl-1">
+            <p>
+              <label for="loginId">Login ID:</label>
+              <input type="text" class="form-control" th:field="*{loginId}" />
+            </p>
+          </div>
+
+          <div class="col-3 col-md-2 col-xxl-1">
+            <p>
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                class="form-control"
+                th:field="*{password}"
+              />
+            </p>
+          </div>
+
+          <p>
+            <input type="submit" class="btn btn-primary" value="ログイン" />
+          </p>
+        </div>
+      </form>
+      <a th:href="@{/signup}">▶Sign up</a>
+    </div>
+  </body>
+</html> {% endcomment %}
+
+-->
