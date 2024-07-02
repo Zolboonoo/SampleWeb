@@ -1,12 +1,17 @@
 @charset "UTF-8";
-body {
+
+.table-active {
+	background-color: #cce5ff; /* 選択行の背景色を設定 */
+}
+
+/* body {
         margin: 0;
         padding: 20px;
         font-family: "Montserrat", sans-serif;
         background-color: #f7f7f7;
-      }
+      } */
 
-      .container {
+      /* .container {
         background-color: white;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         padding: 20px;
@@ -84,4 +89,4 @@ body {
         border-radius: 5px;
         width: 100%;
         max-width: 300px;
-	  }
+	  } */
