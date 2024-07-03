@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>USER LIST</title>
+<title>User List</title>
 </head>
 <body>
 <div th:insert="~{common/sourceList :: sourceList}"></div>
@@ -91,7 +91,7 @@
 					</tbody>
 				</table>
 				<input type="text" th:field="*{selectedLoginId}" hidden>
-				<input type="submit" class="btn btn-secondary" id="updateBtn" name="update" value="Update" disabled>
+				<input type="submit" class="btn btn-secondary" id="editBtn" name="edit" value="Update" disabled>
 				<input type="button" class="btn btn-danger" id="deleteDummyBtn" data-bs-toggle="modal" data-bs-target="#deleteConfirm" value="Delete" disabled>
 				<input type="submit" id="deleteBtn" name="delete" hidden> 
 			</th:block>

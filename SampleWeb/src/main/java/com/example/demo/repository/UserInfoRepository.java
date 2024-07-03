@@ -8,12 +8,15 @@ import com.example.demo.constant.db.AuthorityKind;
 import com.example.demo.constant.db.UserStatusKind;
 import com.example.demo.entity.UserInfo;
 
+/**
+ * ユーザー情報テーブルRepositoryクラス
+ * 
+ * @author ys-fj
+ *
+ */
+public interface UserInfoRepository extends JpaRepository<UserInfo, String> {
 
-
-//@Repository
-public interface UserInfoRepository extends JpaRepository<UserInfo, String>{
-
-  /**
+	/**
 	 * ログインIDの部分一致検索を行います。
 	 * 
 	 * @param loginId ログインID

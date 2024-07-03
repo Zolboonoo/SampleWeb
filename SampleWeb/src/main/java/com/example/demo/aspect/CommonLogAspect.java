@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 /**
  * ログ出力共通クラス
  * 
+ * @author ys-fj
+ *
  */
 @Aspect
 @Component
@@ -25,6 +27,7 @@ public class CommonLogAspect {
 	 *
 	 * @param jp 処理を挿入する場所の情報
 	 * @return 指定したメソッドの戻り値
+	 * @throws Throwable メソッド実行時にcatchした例外
 	 */
 	@Around("execution(* com.example.demo..*(..))")
 	public Object writeLog(ProceedingJoinPoint jp)throws Throwable {

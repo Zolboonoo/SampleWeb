@@ -1,4 +1,3 @@
-
 package com.example.demo.entity.converter;
 
 import com.example.demo.constant.db.UserStatusKind;

@@ -5,4 +5,5 @@ public class ViewNameConst {
   public static final String SIGNUP = "signup";
   public static final String MENU = "menu";
   public static final String USER_LIST = "userList";
+  public static final String USER_EDIT = "userEdit";
 }

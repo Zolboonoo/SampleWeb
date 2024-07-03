@@ -15,12 +15,19 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-
+/**
+ * ユーザー情報テーブルEntityクラス
+ * 
+ * @author ys-fj
+ *
+ */
 @Entity
 @Table(name = "user_info")
 @Data
 @AllArgsConstructor
 public class UserInfo {
+
+	/** ログインID */
 	@Id
 	@Column(name = "login_id")
 	private String loginId;
@@ -58,22 +65,40 @@ public class UserInfo {
 	@Column(name = "update_user")
 	private String updateUser;
 
-	
+	/**
+	 * デフォルトコンストラクタ
+	 */
 	public UserInfo() {
-		
 	}
-	
+
+	/**
+	 * ログイン失敗回数をインクリメントします。
+	 * 
+	 * @return ログイン失敗回数がインクリメントされた、自身のインスタンス
+	 */
 	public UserInfo incrementLoginFailureCount() {
-		return new UserInfo(loginId, password, ++loginFailureCount, accountLockedTime, userStatusKind, authorityKind, createTime,
-				updateTime, updateUser);
+		return new UserInfo(loginId, password, ++loginFailureCount, accountLockedTime, userStatusKind, authorityKind,
+				createTime, updateTime, updateUser);
 	}
-	
+
+	/**
+	 * ログイン失敗情報をリセットします。
+	 * 
+	 * @return ログイン失敗情報がリセットされた、自身のインスタンス
+	 */
 	public UserInfo resetLoginFailureInfo() {
-		return new UserInfo(loginId, password, 0, null, userStatusKind, authorityKind, createTime, updateTime, updateUser);
-	}
-	
-	public UserInfo updateAccountLocked() {
-		return new UserInfo(loginId, password, 0, LocalDateTime.now(), userStatusKind, authorityKind, createTime, updateTime,
+		return new UserInfo(loginId, password, 0, null, userStatusKind, authorityKind, createTime, updateTime,
 				updateUser);
 	}
+
+	/**
+	 * ログイン失敗回数、アカウントロック日時を更新し、アカウントロック状態に更新します。
+	 * 
+	 * @return ログイン失敗回数、アカウントロック日時が更新された、自身のインスタンス
+	 */
+	public UserInfo updateAccountLocked() {
+		return new UserInfo(loginId, password, 0, LocalDateTime.now(), userStatusKind, authorityKind, createTime,
+				updateTime, updateUser);
+	}
+
 }
