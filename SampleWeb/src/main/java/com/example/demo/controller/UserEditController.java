@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.constant.MessageConst;
 import com.example.demo.constant.SessionKeyConst;
 import com.example.demo.constant.UrlConst;
 import com.example.demo.constant.UserEditMessage;
@@ -59,7 +60,9 @@ public class UserEditController {
 		var loginId = (String) session.getAttribute(SessionKeyConst.SELECTED_LOGIN_ID);
 		var userInfoOpt = service.searchUserInfo(loginId);
 		if (userInfoOpt.isEmpty()) {
-			throw new Exception("ログインIDに該当するユーザー情報が見つかりません。");
+			model.addAttribute("message",
+					AppUtil.getMessage(messageSource, MessageConst.USEREDIT_NON_EXISTED_LOGIN_ID));
+			return ViewNameConst.USER_EDIT_ERROR;
 		}
 		setupCommonInfo(model, userInfoOpt.get());
 
@@ -80,10 +83,15 @@ public class UserEditController {
 		updateDto.setUpdateUserId(user.getUsername());
 
 		var updateResult = service.updateUserInfo(updateDto);
+		var updateMessage = updateResult.getUpdateMessage();
+		if (updateMessage == UserEditMessage.FAILED) {
+			model.addAttribute("message", AppUtil.getMessage(messageSource, updateMessage.getMessageId()));
+			return ViewNameConst.USER_EDIT_ERROR;
+		}
+
 		setupCommonInfo(model, updateResult.getUpdateUserInfo());
 
-		var updateMessage = updateResult.getUpdateMessage();
-		model.addAttribute("isError", updateMessage == UserEditMessage.FAILED);
+		model.addAttribute("isError", false);
 		model.addAttribute("message", AppUtil.getMessage(messageSource, updateMessage.getMessageId()));
 
 		return ViewNameConst.USER_EDIT;

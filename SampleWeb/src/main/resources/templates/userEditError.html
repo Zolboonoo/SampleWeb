@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>User edit</title>
+</head>
+<body>
+<div th:insert="~{common/sourceList :: sourceList}"></div>
+
+<div class="container-fluid">
+	<p>Error occurred during user edit.
+    Pleace go back last display.
+	
+	<p><span class="text-danger" th:text="${message}"></span>
+	<p><a th:href="@{/userList}">GO back User edit</a>
+</div>
+</body>
+</html>
