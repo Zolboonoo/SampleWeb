@@ -17,11 +17,17 @@
 			<div>				
 				<label>login ID:</label>
 				<input class="must" type="text" th:field="*{loginId}">
+				<span style="color: red;" th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}"></span>
 			</div>
-			<span style="color: red;" th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}"></span>
 			<div>				
 				<label>password:</label>
 				<input class="must" type="password" th:field="*{password}">
+				<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+			</div>
+			<div>
+				<p><label for="mailAddress">mail address:</label>
+				<input type="text" class="form-control" th:field="*{mailAddress}">
+				<span class="text-danger" th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}"></span>
 			</div>
 			<span style="color: red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 			<div style="text-align: center;">				

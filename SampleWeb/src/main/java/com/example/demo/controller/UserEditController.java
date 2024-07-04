@@ -57,7 +57,7 @@ public class UserEditController {
 	 */
 	@GetMapping(UrlConst.USER_EDIT)
 	public String view(Model model, UserEditForm form) throws Exception {
-		var loginId = (String) session.getAttribute(SessionKeyConst.SELECTED_LOGIN_ID);
+		var loginId = (String) session.getAttribute(SessionKeyConst.SELECETED_LOGIN_ID);
 		var userInfoOpt = service.searchUserInfo(loginId);
 		if (userInfoOpt.isEmpty()) {
 			model.addAttribute("message",
@@ -79,7 +79,7 @@ public class UserEditController {
 	@PostMapping(value = UrlConst.USER_EDIT, params = "update")
 	public String updateUser(Model model, UserEditForm form, @AuthenticationPrincipal User user) {
 		var updateDto = mapper.map(form, UserUpdateInfo.class);
-		updateDto.setLoginId((String) session.getAttribute(SessionKeyConst.SELECTED_LOGIN_ID));
+		updateDto.setLoginId((String) session.getAttribute(SessionKeyConst.SELECETED_LOGIN_ID));
 		updateDto.setUpdateUserId(user.getUsername());
 
 		var updateResult = service.updateUserInfo(updateDto);

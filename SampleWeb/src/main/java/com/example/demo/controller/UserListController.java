@@ -62,7 +62,7 @@ public class UserListController {
 	 */
 	@GetMapping(UrlConst.USER_LIST)
 	public String view(Model model, UserListForm form) {
-		session.removeAttribute(SessionKeyConst.SELECTED_LOGIN_ID);
+		session.removeAttribute(SessionKeyConst.SELECETED_LOGIN_ID);
 
 		var userInfos = service.editUserList();
 		model.addAttribute(KEY_USERLIST, userInfos);
@@ -100,7 +100,7 @@ public class UserListController {
 	 */
 	@PostMapping(value = UrlConst.USER_LIST, params = "edit")
 	public String updateUser(UserListForm form) {
-		session.setAttribute(SessionKeyConst.SELECTED_LOGIN_ID, form.getSelectedLoginId());
+		session.setAttribute(SessionKeyConst.SELECETED_LOGIN_ID, form.getSelectedLoginId());
 		return AppUtil.doRedirect(UrlConst.USER_EDIT);
 	}
 
