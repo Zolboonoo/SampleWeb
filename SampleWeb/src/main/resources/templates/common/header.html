@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<link rel="stylesheet" th:href="@{/css/style.css}">
-	</head>
-<body>
-<nav class="navbar bg-info navbar-dark" th:fragment="header">
-	<div class="container-fluid">
-    	<a class="navbar-brand" th:href="@{/menu}">Product management system</a>
-    	<form th:action="@{/logout}" method="post">
-    		<span class="text-light" th:text="|Login ID：${#authentication.principal.username}|"></span>
-			<input type="submit" class="btn btn-light" value="Log out" />
-		</form>
-	</div>
-</nav>
-</body>
+  <head>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <nav class="navbar bg-info navbar-dark" th:fragment="header">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/menu}">Product management system</a>
+        <form th:action="@{/logout}" method="post">
+          <span
+            class="text-light"
+            th:text="|Login ID：${#authentication.principal.username}|"
+          ></span>
+          <input type="submit" class="btn btn-light" value="Log out" />
+        </form>
+      </div>
+    </nav>
+  </body>
 </html>

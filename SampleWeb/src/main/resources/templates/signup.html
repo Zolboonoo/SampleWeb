@@ -4,27 +4,21 @@
 <meta charset="UTF-8">
 <title>Sign up</title>
 <div th:insert="~{common/sourceList :: sourceList}"></div>
-<div th:replace="~{common/messageIcon :: messageIcon}"></div><link rel="stylesheet" th:href="@{/css/style.css}">
+<div th:replace="~{common/messageIcon :: messageIcon}"></div>
+<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 	<div class="container">
 		<h1>Register</h1>
 		<div class="form">
-			<div class="alert alert-danger d-flex align-items-center" role="alert" th:if="${errorMsg} != null">
-				<svg class="bi flex-shrink-0 me-2" width="24" height="24">
-					<use xlink:href="#exclamation-triangle-fill" />
-				</svg>
-				<div>
-					<span th:text="${errorMsg}"></span>
-				</div>
-			</div>
+			<div th:insert="~{common/guideMessage :: guideMessage}"></div>
 			<form th:action="@{/signup}" method="post" th:object="${signupForm}">
-			<div>				
+			<div>
 				<label>login ID:</label>
 				<input class="must" type="text" th:field="*{loginId}">
 				<span style="color: red;" th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}"></span>
 			</div>
-			<div>				
+			<div>
 				<label>password:</label>
 				<input class="must" type="password" th:field="*{password}">
 				<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>

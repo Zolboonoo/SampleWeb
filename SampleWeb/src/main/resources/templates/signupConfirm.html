@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Registration Temporary Completion</title>
-</head>
-<body>
-<div th:insert="~{common/sourceList :: sourceList}"></div>
-<div th:replace="~{common/messageIcon :: messageIcon}"></div>
-<div class="container-fluid">
-	<h2>Registration Temporary Completion Screen</h2>
-	<div class="alert d-flex align-items-center mt-3" th:classappend="|${isError ? 'alert-danger' : 'alert-primary'}|" role="alert" th:if="${message != null}">
-		<svg class="bi flex-shrink-0 me-2" width="24" height="24">
-			<use xlink:href="#exclamation-triangle-fill" th:if="${isError}" />
-			<use xlink:href="#info-fill" th:unless="${isError}"/>
-		</svg>
-		<span th:text="${message}"></span>
-	</div>
-	User registration has been tentatively completed.<br>
-	The one-time code required for this registration has been sent to your registered e-mail address. Please confirm it and enter it on the screen.<p>
-	<form th:action="@{/signupConfirm}" method="post">
-		<table>
-			<tr>
-				<td><label for="oneTimeCode">One-time code:</label></td>
-				<td>
-					<div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<input type="text" class="form-control" id="oneTimeCode" name="oneTimeCode">
-						</div>
-					</div>
-				</td>
-			</tr>
-		</table>
-		<div class="mt-3">
-			<input type="submit" class="btn btn-primary" value="Confirm">
-		</div>
-		<div class="mt-3">
-			<a th:href="@{/login}">▶Return to login screen</a>
-		</div>
-	</form>
-</div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registration Temporary Completion</title>
+  </head>
+  <body>
+    <div th:insert="~{common/sourceList :: sourceList}"></div>
+    <div th:replace="~{common/messageIcon :: messageIcon}"></div>
+    <div class="container-fluid">
+      <h2>Registration Temporary Completion Screen</h2>
+      <div th:insert="~{common/guideMessage :: guideMessage}"></div>
+      User registration has been tentatively completed.<br />
+      The one-time code required for this registration has been sent to your
+      registered e-mail address. Please confirm it and enter it on the screen.
+      <p></p>
+      <form th:action="@{/signupConfirm}" method="post">
+        <table>
+          <tr>
+            <td><label for="oneTimeCode">One-time code:</label></td>
+            <td>
+              <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="oneTimeCode"
+                    name="oneTimeCode"
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <div class="mt-3">
+          <input type="submit" class="btn btn-primary" value="Confirm" />
+        </div>
+        <div class="mt-3">
+          <a th:href="@{/login}">▶Return to login screen</a>
+        </div>
+      </form>
+    </div>
+  </body>
 </html>

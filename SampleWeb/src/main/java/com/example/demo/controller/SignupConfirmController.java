@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.constant.MessageConst;
+import com.example.demo.constant.ModelKey;
 import com.example.demo.constant.SessionKeyConst;
 import com.example.demo.constant.SignupConfirmStatus;
 import com.example.demo.constant.UrlConst;
@@ -41,29 +42,36 @@ public class SignupConfirmController {
 	 * 
 	 * @param oneTimeCode ワンタイムコード
 	 * @param redirectAttributes リダイレクト用モデル
-	 * @return ユーザー本登録完了画面
+	 * @return ユーザー本登録完了画面テンプレート名
 	 */
 	@GetMapping(UrlConst.SIGNUP_CONFIRM)
 	public String view() {
 		return ViewNameConst.SIGNUP_CONFIRM;
 	}
 
+	/**
+	 * 画面に入力されたワンタイムコードの認証を行います。
+	 * 
+	 * @param oneTimeCode 入力されたワンタイムコード
+	 * @param redirectAttributes リダイレクト用オブジェクト
+	 * @return リダイレクトURL
+	 */
 	@PostMapping(UrlConst.SIGNUP_CONFIRM)
 	public String signupConfirm(String oneTimeCode, RedirectAttributes redirectAttributes) {
 		var loginId = (String) session.getAttribute(SessionKeyConst.ONE_TIME_AUTH_LOGIN_ID);
 		if (loginId == null) {
-			redirectAttributes.addFlashAttribute("message", MessageConst.SIGNUP_CONFIRM_INVALID_OPERATION);
-			redirectAttributes.addFlashAttribute("isError", true);
+			redirectAttributes.addFlashAttribute(ModelKey.MESSAGE, MessageConst.SIGNUP_CONFIRM_INVALID_OPERATION);
+			redirectAttributes.addFlashAttribute(ModelKey.IS_ERROR, true);
 			return AppUtil.doRedirect(UrlConst.SIGNUP_CONFIRM);
 		}
 
-		var signupConfirmStatus = service.chkTentativeSignupUser(loginId, oneTimeCode);
+		var signupConfirmStatus = service.updateUserAsSignupCompletion(loginId, oneTimeCode);
 
 		// 次画面にワンタイムコード認証結果の情報を渡す
 		var message = AppUtil.getMessage(messageSource, signupConfirmStatus.getMessageId());
 		var isError = signupConfirmStatus != SignupConfirmStatus.SUCCEED;
-		redirectAttributes.addFlashAttribute("message", message);
-		redirectAttributes.addFlashAttribute("isError", isError);
+		redirectAttributes.addFlashAttribute(ModelKey.MESSAGE, message);
+		redirectAttributes.addFlashAttribute(ModelKey.IS_ERROR, isError);
 		if (isError) {
 			return AppUtil.doRedirect(UrlConst.SIGNUP_CONFIRM);
 		}
